@@ -1,0 +1,78 @@
+class Pessoa:
+    def __init__(self, nome, idade):
+        self.nome = nome
+        self.idade = idade
+
+class CrudPessoas:
+    def __init__(self):
+        self.pessoas = []
+
+    def criar_pessoa(self, nome, idade):
+        pessoa = Pessoa(nome, idade)
+        self.pessoas.append(pessoa)
+
+    def listar_pessoas(self):
+        for pessoa in self.pessoas:
+            print(f"Nome: {pessoa.nome}, Idade: {pessoa.idade}")
+
+    def buscar_pessoa(self, nome):
+        for pessoa in self.pessoas:
+            if pessoa.nome == nome:
+                return pessoa
+        return None
+
+    def atualizar_pessoa(self, nome, novo_nome, nova_idade):
+        pessoa = self.buscar_pessoa(nome)
+        if pessoa:
+            pessoa.nome = novo_nome
+            pessoa.idade = nova_idade
+            print("Pessoa atualizada com sucesso.")
+        else:
+            print("Pessoa não encontrada.")
+
+    def excluir_pessoa(self, nome):
+        pessoa = self.buscar_pessoa(nome)
+        if pessoa:
+            self.pessoas.remove(pessoa)
+            print("Pessoa excluída com sucesso.")
+        else:
+            print("Pessoa não encontrada.")
+
+
+# Exemplo de uso do CRUD
+
+crud = CrudPessoas()
+
+# Criar pessoas
+crud.criar_pessoa("João", 30)
+crud.criar_pessoa("Maria", 25)
+
+# Listar pessoas
+print("Lista de pessoas:")
+crud.listar_pessoas()
+print()
+
+# Buscar pessoa
+nome = input("Digite o nome da pessoa que deseja buscar: ")
+pessoa_encontrada = crud.buscar_pessoa(nome)
+if pessoa_encontrada:
+    print(f"Pessoa encontrada: Nome: {pessoa_encontrada.nome}, Idade: {pessoa_encontrada.idade}")
+else:
+    print("Pessoa não encontrada.")
+print()
+
+# Atualizar pessoa
+nome = input("Digite o nome da pessoa que deseja atualizar: ")
+novo_nome = input("Digite o novo nome: ")
+nova_idade = int(input("Digite a nova idade: "))
+crud.atualizar_pessoa(nome, novo_nome, nova_idade)
+print()
+
+# Excluir pessoa
+nome = input("Digite o nome da pessoa que deseja excluir: ")
+crud.excluir_pessoa(nome)
+print()
+
+# Listar pessoas após as alterações
+print("Lista de pessoas atualizada:")
+crud.listar_pessoas()
